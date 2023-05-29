@@ -1,0 +1,76 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% cap: Threats %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Threats}\label{cap:threats}
+
+
+\section{What is a Threat}
+In real life, a threat represents a hostile action towards someone in retribution for something, either as the aftermath of another action or due to pure malicious intent. This definition translates quite accurately into the virtual world too. A virtual threat relates to the security of a device being compromised; either through the execution of a malevolent executable file or through a vulnerability found in different frameworks, libraries, etc. ultimately leading to cyber-attacks or backdoors that result in data being stolen, lost or edited. A well-known case of such incidents was the Log4j vulnerability from 2021 that affected a lot of applications resulting in an abundance of compromised data; a great in depth explanation of it can be found in \cite{hiesgen2022race}
+
+
+\section{Threat Incentives}\label{sect:incentive}
+The purpose behind creating a threat can be of various types, although it often seems to be linked to a desire of stealing money from preyed-upon victims. The most common practice for this is through ransomware; a type of threat that encrypts all of the user's files and targets their wallet by threatening them with the deletion of all their files if the payment is not done in due time. This is done in order to stir psychological pressure in them, henceforth losing rationality and paying the ransomware creators.%  As this topic begins to drift from ours, two good reads on this idea are \cite{noorbaloochi2015payoff} and \cite{maule2002effects}. 
+\newline
+
+\noindent An ulterior incentive of a threat is getting personal information out of the user (i.e. credentials for a website, banking account information, etc.) and this is done through keylogging. A keylogger is a type of software that records the victims' keyboard inputs together with where they are made then sends them to the attacker's database. Through this, the victim will inadvertently expose their private information and passwords, giving full access of their accounts to the creator.% A similar incentive is behind the backdoor exploiters.
+\newline
+
+\noindent And finally, the last common motive is the creation of a botnet. This refers to a network of computers infected by malware that are then put under the control of the attacking party. Each device included in this network can be commanded simultaneously to conduct a coordinated attack. These can be spread in many ways but the most common way is through email (similar to the ILOVEYOU virus \cite{knight2000iloveyou}). A well known botnet threat is the Conficker virus \cite{kaskaconficker}, also known as Downadup, a threat created in 2008 that has infected millions of Windows computers since and caused damages worth approximately \$9 billion.
+
+
+\section{Types of threats}\label{chap:threattypes}
+In order to fulfill their goals, the threat developers take different approaches and go to great lengths, henceforth, multiple types of threats have been created. Given the large density of them, they have been given the name of "malware" (or "malicious software" in other words) in order to categorize them all in one field and the malicious part of code being referred to as the "payload". 
+
+\subsection{Spywares}
+\noindent As the name may indicate, Spywares are the types of threats that are installed on a device without the consent nor knowledge of the user. They invade the device in cause, steal information and relays it to the creator of the software; which then can either sell the data or use it in malicious ways. A spyware is not just one type of a threat but is an entire category of malware that includes a vast amount of malware types, however, only the most common ones will be covered.
+
+\subsubsection{Trojan Horses}
+Dating back to circa 1194 BC, the word "Trojan horse" refers to a specific object designed to breach the security of while ostensibly performing some innocuous function. In a similar manner, a normal software can also be turned into a trojan horse through granting source code editing access to a person with malevolent intentions. As seen in figure 2.1, this type of threat is not a complex one and it does not try to inject itself into the victim's computer nor does it try to propagate itself. In retrospect however, according to \cite{mansfield2022verizon}, in 2022 82\% of breaches involved the human element. 
+\begin{lstlisting}[caption = Trojan Horse Code Example, columns=fixed, basewidth=0.5em, basicstyle={\ttfamily}, frame=single]
+def LogIn():
+    name = input("Username: ")
+    password = input("Password: ")
+    if (ValidCredentials(name,password)):
+        sendEmail("threatCreator@email.com",name,password)
+        grantAccess(name)
+\end{lstlisting}
+
+\subsubsection{Adware and Phishing}
+\noindent Following up, a less destructive type of threat is the adware with phishing as an association. While adwares and the phishing attacks do not pose any danger, they can be hurtful to the system or to the victim's device if handled incorrectly. Adware (also known as advertisement-supported software) generate the revenue needed for its developers through showing adverts on the victim's screen. Adwares are harmless most of the time, however what they advertise may not be; the only "threat" in here being that adwares take up unnecessary computing resources and ultimately will slow down the older device. Phishing on the other hang, targets the less experienced computer users by tricking them into believing they are giving their information to a credible source when they are not. In order to generate this false sense of trust, the creator builds an identical copy of a software or website and promotes it through adverts in hopes that someone without much experience in the field will click and compromise their information
+
+\subsubsection{Keyloggers}
+\noindent Keyloggers (otherwise known as keystroke loggers) are the threats that track what the user inputs through the keyboard to any website, forwarding all that information to the creator. This information can range from unavailing to completely compromising and this fully depends on the end user and the type of activities they do on their device. As malicious as it may sound however, keyloggers can also be used for non-malicious incentives, such as tracking employee activity or for troubleshooting problems by IT departments. 
+
+\subsection{Ransomware}
+\noindent The next most common type of threat is the ransomware. As mentioned in section \ref{sect:incentive} coupled with what the threat's name suggests, a ransomware is a type of threat that holds one's information at ransom. Unlike in real life, after its distribution and being infected by it, the victim will not be able to communicate with the creator anymore; putting the victim at the mercy of the software. The way ransomware interdicts access to the victim's information is through encryption, most typically an asymmetric one to make other decryption software impractical. After the encryption is complete, the victim will be forced into paying a sum of money for the private decryption key. Finally, the payment is to be done via decentralised virtual currency, as a result making it impossible to trace back to the creator \cite{mabunda2018cryptocurrency}.
+
+
+
+\subsection{Worms}
+\noindent Worms have been declining in popularity lately, however they are still prevalent, especially when attempting to perform some not-so-legal activities on the internet. They are transmitted through vulnerabilities in software and have the ability to delete and modify files. They can also inject other more malicious software into the device. Most of the time, the worm's main incentive is to replicate itself in mass in order to waste system resources and make it harder to fully remove it. Lastly, worms can also steal sensitive data and install a backdoor such that the creator or any other hacker will be able to access it. The virus that caused the most damage throughout the Internet's entire existence, MYDOOM, is a worm which spread itself through mass-emails, substantially degraded network services and co-joined the infected computers into carrying out massive DDOS (distributed denial of service) attacks \cite{wong2004study}. The estimated damage went as high as \$38 billion. 
+
+\subsection{SQL Injections}
+\noindent Most software that store the data of the users in a database are possible victims of SQL Injections. This type of threat is different than the rest due to it arising from either end, unlike just from the end of the person maintaining the data. In order for the data to be accessed, the maintainer has to create and run a specific set of instructions similar to the English language called a query. These are formatted as strings through the use of either quotation marks or semi-quotes then separated through a semicolon. These queries are often run through programming languages that have a built-in SQL library, however, they simply take the string-formatted query and execute it, therefore allowing vulnerabilities.
+
+\begin{lstlisting}[caption = Undefended SQL Execution, columns=fixed, basewidth=0.5em, basicstyle={\ttfamily}, frame=single]
+def executeQuery(query):
+    cursor.execute(query)
+    print(cursor.fetchall())
+
+
+name = input("Username:")
+executeQuery("select * from Table where name = ' " + name + " ' "
+\end{lstlisting}
+
+The example given above is a typical program that returns the information of the user with the given username, however, there is no protection, therefore it allowing a username of the following type:
+
+\begin{lstlisting}[caption = SQL Injection, columns=fixed, basewidth=0.5em, basicstyle={\ttfamily}, frame=single]
+name = "Armand'; delete from Table where name = 'Victim"
+
+# This will then be interpreted as the following:
+
+select * from Table where name = 'Armand';
+delete from Table where name = 'Victim';
+
+\end{lstlisting}

@@ -1,0 +1,77 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% cap: TDTSCCA %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Detecting Threats through SCC}\label{cap:detectingthreatsthroughscc}
+
+
+\section{Testing criteria}
+
+\noindent To help our labeling, we will use the following table to categorize the results of each Static Code Analysis tool.
+
+\begin{table}[htbp]
+\centering
+\caption{Benchmark outputs}
+\label{tab:test-cases}
+\begin{tabular}{|l|llll|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Test\\ Case\end{tabular}}}} & \multicolumn{4}{c|}{Reported by tool}                                             \\
+\multicolumn{1}{|c|}{}                                                                              & \multicolumn{2}{l|}{Condition Positive} & \multicolumn{2}{l|}{Condition Negative} \\ \hline
+Positive                                                                                            & \multicolumn{2}{l|}{True Positive}      & \multicolumn{2}{l|}{False Negative}     \\ \hline
+Negative                                                                                            & \multicolumn{2}{l|}{False Positive}     & \multicolumn{2}{l|}{True Negative}      \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent Each possible output being composed of 2 words, the first one represents whether or not a mistake exists in the code or the code could be improved whereas the second one refers to the tool's perception of the given code.\newline
+
+\noindent In order to compute the accuracy of the tool, the formula that will be used is:
+
+\begin{equation}
+100 * \frac{True Positives + True Negatives}{True Positives + False Negatives + False Positives + True Negatives}    
+\end{equation}\newline
+
+\noindent The formula in cause is used to represent the correctness of the tool in regards to the tests by deducting points for wrong tool outputs and lastly, the final scoring will be multiplied by 100 in order to convert it into percentages.
+
+\section{Types of threats}
+
+When considering the types of threats that we can look into using as a testing data set, there are various options to choose from, as it can be seen in \autoref{chap:threattypes}; however, these can be seen as simple branches of the more important divisions. The divisions in cause refer to whether the code behind the threat has been reverse-engineered and revealed publicly or not.
+
+\subsection{Open Source Threats}
+
+The most important type of threats that will be analyzed are open-source ones. The reasoning behind it is to check whether or not tools have been trained on that specific type of attack through the code behind it or through its approach. This goes well into concordance with the following subsection where the open-sourced threats will be modified to different levels in order to help us determine the extent of training done on these tools
+
+\subsection{Altered Open Source Threats}
+
+In order to avoid the possibility of a software memorizing a threat based on the open-source factor, a handful of such harmful programs will be altered in minimalistic ways (i.e. rearranged statements, variable types, identifiers, whitespaces and comments). Therefore, the testing will be performed on two alterations of the program; those being:
+
+\begin{enumerate}
+    \item \textbf{Renamed Clones} \vspace{0.3cm} \\
+    These are syntactically identical clones except for alterations in irrelevant fields such as variable types, comments, whitespaces, etc.
+    
+    \item \textbf{Restructured Clones} \vspace{0.3cm} \\ 
+    These referring to structurally modified code like rearranged statements as further extensions to renamed clones but in a fashion that the final goal will remain the same
+
+    \item \textbf{Rebased Clones} \vspace{0.3cm} \\
+    And these ultimately being an even further extension of the restructured clones, to the point where there are only a few tangents left to the original code left (i.e. encryption methods, attack strategy, recursion, etc.)
+    
+\end{enumerate}
+
+
+\subsection{Closed Source Threats}
+
+%Ultimately, when analyzing threats, it's hardly ever the case that the user will have access to the source code. Similarly, when analyzing a file, the odds of the tool being trained on detecting the program's specific approach are grim. While it is true that there are limited ways of performing a task, that does not mean that all have been yet explored. Given that information, tests will be run on software that have not publicly revealed their code in order to attest for their accuracy.
+
+As the greatest limitation of threat limitation when statically checking, it would be impossible to analyze the safety of a built application without unpacking or reverse engineering it. Some alternative approaches and attempts at statically checking the trustworthiness of a program have been made in \cite{nath2014static} and \cite{shalaginov2018machine}, however, they revolve around machine learning, a topic that is quite distant from our research topic, and as such, only Open Source Threats will be analyzed.
+
+\section{Expectations}
+
+To briefly reiterate what was mentioned priorly in \ref{tdtscc}, threats have many ways of avoiding detection and static analysis is based on comparing code with entries stored in a database in order to spot discrepancies between the two and notify the programmer upon encountering one. In order to have these tools detect threats, it would take starting to collect more behavioral patterns for other types of code intentions, which would be redundant given the existence of antiviruses. \\
+
+\noindent In a like manner, being granted access to the source code of threats is not something that will happen often and therefore dynamically checking the product, software or application at runtime will be a better alternative. That being said, the expectations of static code checking tools to detect threats are minimal.
+
+
+
+
+\section{Results} \label{TDTSCResults}
+
+Without a need to provide charts, the tools have failed in detecting every single threat, no matter the complexity and danger. While they have been able in spotting redundant obfuscation in the code, they were unable to warn the user of the possible dangers that could happen once running said code; ultimately meeting the expectations listed above.  

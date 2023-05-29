@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% cap: Threats %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Benchmarks of SCA tools}\label{cap:Benchmarks}
+
+
+\section{Types of tests}
+In this paper, benchmarking Static Code Analysis tools will be done through multiple variations of unconventional and poorly optimized code; multiple languages will be used to expose the tools to different paradigms. The ones that will be put to the test are: Low-level memory management through C and C++, Object-Oriented via C\#, and lastly, scripting with the help of Python.\newline
+
+\noindent To help our labeling, we will use the following table to categorize the results of each Static Code Analysis tool.
+
+\begin{table}[htbp]
+\centering
+\caption{Benchmark table for code improvements}
+\label{tab:SCABenchmarkTable}
+\begin{tabular}{|l|llll|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Test\\ Case\end{tabular}}}} & \multicolumn{4}{c|}{Reported by tool}                                             \\
+\multicolumn{1}{|c|}{}                                                                              & \multicolumn{2}{l|}{Changed} & \multicolumn{2}{l|}{Unchanged} \\ \hline
+Improvable                                                                                            & \multicolumn{2}{l|}{Success}      & \multicolumn{2}{l|}{Inaccuracy}     \\ \hline
+Unimprovable                                                                                            & \multicolumn{2}{l|}{Inaccuracy}     & \multicolumn{2}{l|}{Success}      \\ \hline
+\end{tabular}
+\end{table}
+
+% \noindent Each possible output is composed of 2 words, the first one represents whether or not a mistake exists in the code or the code could be improved whereas the second one refers to the tool's perception of the given code.\newline
+
+\begin{center}
+    \noindent In order to compute the accuracy of the tool, the formula that will be used is:
+\end{center}
+
+\begin{equation}
+100 * \frac{Successes}{Successes + Inaccuracies}    
+\end{equation}\newline
+
+\noindent The formula in cause is used to represent the correctness of the tool in regards to the tests by deducting points for wrong tool outputs and lastly, the final scoring will be multiplied by 100 in order to convert it into percentages.
+
+% https://ieeexplore.ieee.org/abstract/document/8109084
+\section{Expectations}
+
+In regards to Static Code Analysis, it is important to catch faulty code together with improving general code quality, however, this comes as a less important factor as long as the code is functional. As research \cite{cuoq2012benchmarking} \cite{herter2019benchmarking} in the previous years have shown, Static Code Analyzers have an average detection rate of over 70\% henceforth, the most common result is expected to be \textit{Success} 
+
+\section{Important Mentions}\label{githubRef}
+
+The short programs and algorithms used to test the aforementioned tools are not entirely original; a part of the samples used for testing have been heavily inspired from previously seen algorithms and credits will be given where required. %On a similar note, a great amount of the samples used, if not all, will be available on GitHub in the following repository:\\
+%\vspace{-15pt}
+%\begin{center}
+%    https://github.com/Zedpaixd/Threat-Detection-By-SCC-Thesis-samples
+%\end{center}
+
+
+% \subsection{Scripting}
+
+% As a starting set of tests, a series of scripts will be used as testing data for the tools in question. These tests are meant to test the accuracy of spotting uncommon coding practices and poorly formatted code and as such, the language in which the tests will be written in, and furthermore analyzed by the tools, is Python. 
+
+
+
+% \subsection{Memory Management}
+
+% Moving on, in order to add one more layer of complexity to the tests, memory management will be incorporated in tests, together with references and pointers, therefore, testing the accuracy of poor memory management. Due to the incapabilities of Python to do such tasks, the tests will be written in the C language.
+
+
+% \subsection{Object Oriented}
+
+% Furthermore, in to take one more step towards abstraction, classes, inheritance, polymorphism, and method overloading will be incorporated. This serves the purpose of testing the accuracy of such tools in spotting poor program flow and bad linearity. Given the lack of such a proprietary concept in C, the language used for these algorithms will be C\#
+
+
+% \subsection{General code improvements}
+
+% Finally, as the last criterion, the testing will be done in a generalized manner; no particular testing goal but rather poorly optimized code will be used in order to determine whether or not any improvements will be found, and if so, what kind of improvements will be suggested.
+
+\section{Results}\label{scaResults}
+
+After running various tools over multiple code samples, it became clear that the performance of these tools has greatly improved since the previous research found in \cite{cuoq2012benchmarking} and \cite{herter2019benchmarking}. Granted that the used tools (SonarQube, PVS-Studio, StyleCop and Embold) have had similar success rates, with an average difference of 2-3\% over more than 10000 lines of code, their statistics will be averaged and the final results are as follows:
+
+\begin{figure}[H]
+    \caption{SCC results}
+    \label{SCC results}
+    \centering
+    \includegraphics[scale=0.9]{./Images/SCC Results.png}
+\end{figure}

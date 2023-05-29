@@ -1,0 +1,192 @@
+\documentclass[12pt,a4paper,openany]{book}
+%\documentclass[12pt,a4paper]{book}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\usepackage{amsmath,amsthm,amssymb,graphicx,hyperref}
+\usepackage[left=1.2in,right=1.2in,top=1in,bottom=1in]{geometry}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage[style=ieee]{biblatex}
+\usepackage{csquotes}
+%\bibliography{Bibliography}
+\addbibresource{Bibliography.bib}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[font={bf},labelfont=bf]{caption}
+\RequirePackage{hyphenat}
+\usepackage{algorithmic, algorithm}
+\usepackage[inline]{enumitem}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+\newtheorem{exmp}{Example}[section]
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.80}
+%\DeclareUnicodeCharacter{0301}{*************************************}
+
+\renewcommand{\lstlistingname}{Figure}% Listing -> Figure
+
+\makeatletter
+\AtBeginDocument{%
+  \let\c@figure\c@lstlisting
+  \let\thefigure\thelstlisting
+  \let\ftype@lstlisting\ftype@figure % give the floats the same precedence
+}
+\makeatother
+
+\makeatletter
+\renewcommand*{\ext@figure}{lot}
+\let\c@figure\c@table
+\let\ftype@figure\ftype@table
+\let\listoftableandfigures\listoftables
+\renewcommand*\listtablename{Tables and Figures}
+\makeatother
+
+% https://tex.stackexchange.com/questions/334246/what-does-the-phrase-underfull-hbox-badness-10000-in-paragraph-actually-mea <-----
+% name figure xxx and refer to them by their no. instead of "below..."
+
+% https://www.researchgate.net/profile/Andrew-Sung-4/publication/4115464_Static_Analyzer_of_Vicious_Executables_SAVE/links/542191cc0cf274a67fea9972/Static-Analyzer-of-Vicious-Executables-SAVE.pdf   download it as it will be useful.
+
+% https://ieeexplore.ieee.org/abstract/document/6045967  very good idea to mention later (trustworthiness of websites checked through SCA)
+
+
+
+\begin{document}
+
+\sloppy
+
+\thispagestyle{empty}
+\begin{center}
+\begin{figure}[h!]
+\vspace{-20pt}
+\begin{center}
+\includegraphics[width=100pt]{FMI-03.png}
+\end{center}
+\end{figure}
+
+
+{\large{\bf WEST UNIVERSITY OF TIMI\c SOARA
+
+FACULTY OF MATHEMATICS AND COMPUTER SCIENCE
+
+BACHELOR/MASTER STUDY PROGRAM:  Computer Science in English}}
+
+\vspace{120pt}
+{\huge {\bf BACHELOR THESIS}}
+
+\vspace{160pt}
+\end{center}
+
+{\large\noindent{\bf SUPERVISOR:
+\hspace{172pt} GRADUATE: }
+
+\noindent Lect. Dr. Adrian Spătaru \hfill 
+\noindent  Armand-Alexandru Balint
+}
+
+\vfill
+\begin{center}
+{\bf TIMI\c SOARA
+
+2023}
+\end{center}
+\newpage
+\thispagestyle{empty}
+\begin{center}
+{\large{\bf WEST UNIVERSITY OF TIMI\c SOARA
+		
+FACULTY OF MATHEMATICS AND COMPUTER SCIENCE
+		
+BACHELOR/MASTER STUDY PROGRAM:  Computer Science in English}}
+
+\vspace{200pt}
+{\huge {\bf Exploring and assessing the efficacy of Static Code Analysis }}
+%Threat Detection by Static Code Checking
+\vspace{153pt}
+\end{center}
+
+{\large\noindent{\bf SUPERVISOR:\hfill GRADUATE:}
+
+\noindent Prof. Adrian Spataru\hfill
+\noindent Armand-Alexandru Balint}
+ 
+
+\vfill
+\begin{center}
+{\bf TIMI\c SOARA
+
+2023}
+\end{center}
+
+\newpage
+\normalsize{}
+\vspace*{\fill}
+\vspace{-2cm}
+\begin{center}
+\section*{Abstract}
+\vspace{50pt}
+\end{center}
+
+
+\noindent This thesis delves into three different use cases of Static Code Analysis tools (SCA for short). The first use case of such tools would be to improve general code quality, whereas the second and third refer to investigating their efficiency in detecting vulnerabilities and respectively threatening apps by acting as an antivirus replacement. Each stage of this analysis will be examined in detail, highlighting key aspects and features by providing insights for the reader.\\
+
+\noindent To further enhance the quality of this analysis, a few groups of differently-skilled programmers from diverse backgrounds have been asked to participate in a study where they will have to put their knowledge to the test and differentiate vulnerabilities from secure code through simple code snippets. By comparing the performance of the SCA tools with the previously-mentioned input, this study aims to provide a thorough examination of the effectiveness of these tools in practical scenarios and whether or not it is advised to use them. The different criteria for testing will be defined prior to every results showcase and the conclusive thoughts will be done based on that. \\
+
+\noindent Through a series of comparisons between tools and humans, this thesis seeks to determine whether or not SCA tools are worth using, or if the expertise of a human combined with common sense is sufficient for effective software development. 
+
+\vspace*{\fill}
+
+\newpage
+\normalsize{}
+\input{Acknowledgments}
+\tableofcontents
+
+%\counterwithout{table}{chapter}
+%\counterwithout{figure}{chapter}
+
+\renewcommand{\listtablename}{Figures and Tables}
+\listoftables
+
+\renewcommand\lstlistlistingname{Code Snippets}
+\lstlistoflistings
+
+
+
+
+\input{introduction}
+\input{static code analysis.tex}
+\input{Static code analysis performance.tex}
+\input{Vulnerabilities.tex}
+\input{Threats.tex}
+\input{Threat Detection.tex}
+\input{Threat Detection through SCC apps.tex}
+\input{Ending.tex}
+
+\input{Conclusion.tex}
+
+\chapter{Discussion}\label{cap:discussion}   % rewrite
+
+One of the key findings of this study is that while Static Code Checkers can be effective in identifying code improvements and vulnerabilities, they are not perfect and can, at times, either not detect some flaws or detect false positives. However, one of the most important things to bring forth is that the tools that were used were in their default form (i.e. cheapest variant) and therefore, while they may have some limitations in the form they are currently in, they can online provide better results in their other, more expensive variants. Additionally, as some tools offer flexibility with their set of rules, more advanced plans would certainly be of greater use for the largest amount of users. \\
+
+\noindent Another important finding is that Static Code Checking tools can indeed be effective in improving general code quality, through detecting coding issues such as syntax errors, unused variables and faulty code. Purely based on this, such tools can save a lot of time and effort for developers by catching and fixing such issues, together with giving developers a small insight over the issues to help them avoid making similar mistakes in the future. Ultimately, this can lead to more efficient and error-free software development
+
+
+
+
+
+\clearpage
+
+
+%\bibliographystyle{apacite}
+%\bibliography{References}
+
+% performance
+\printbibliography
+
+\end{document} 
+

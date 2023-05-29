@@ -1,0 +1,175 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% cap: Threats %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Threat detection methodology}\label{cap:threat detection methodology}
+
+
+\section{Threats in code}
+
+Threat detection is important because it helps to identify potential security threats and vulnerabilities in a timely manner, allowing anyone to take action and mitigate or eliminate those threats before they can cause any harm. This can help in protecting sensitive data, preventing unauthorized access to systems, and maintaining the integrity and availability of critical infrastructure. It is an essential component of any comprehensive security strategy, as it helps to identify and respond to potential threats before they can do harm. These threats can be either created by accident or on purpose and they can range anywhere from minor annoyances to complete system failures or even large-scale user data leakage
+
+%Threat detection is an important part of the software development process, therefore, it is critical to have a way to identify and prevent attacks as early on in the development process as possible. Threats can be either accidental or malicious, and they can be anywhere from minor annoyances to complete system failures or large-scale user data leakage. 
+
+\section{Limitations in detecting of threats}
+
+Threat detection can be done either through analyzing a program's behavioral pattern (which implies Dynamic Code Checking) or by analyzing its code prior to the execution of the program, and in order to stay within the scope of the paper, the main focus will be put on code analysis. However, when analyzing code, we have to take into account some possible limitations of tools, especially as it is incredibly difficult to create a perfect algorithm with a generally-tinted goal. And so, below will be listed a handful of limitations that some tools may have difficulties with.
+
+%That being said, detecting threats through static code checking consists of examining the executable / jar file without viewing the source code; while this can also be done, it is not required. This is used to clarify to the user if the inspected file is harmful or not. 
+% What did i smoke while writing the above??? 
+
+% \section{Limitations}
+
+% No algorithm nor engine is perfect, they are built with a specific intent and thus, it is hard to generalize them for other purposes than their initial. Given the scope of this paper, the limitations are about understanding the intent of the code.
+
+\subsection{Digital Signatures}   % add limitation mention at the beginning
+A simple and standard way of deciding whether or not something is a threat or potentially harmful behavior is through digital signatures. These digital signatures simply refer to code signing \cite{bencsath2012duqu}, a method widely used nowadays in order to mark the identity of the software creator and the integrity of the code on the software itself; therefore, if an application known for allowing others to create threats digitally signs itself, it will then be automatically detected. \\
+%which therefore will automatically spot and detect threats through a 3rd party software. 
+
+%\textit { ----- A great example of this would be modern anti-cheats that never fail to detect scripts and macros done through software that allow such actions.   (( do I try to fit this in? ))} \newline
+
+
+\noindent That being said, here we can picture a first limitation: A supposedly safe digital signature does not mean that the code about to be executed is trustworthy as it can not take into account the possibility of a compromised encryption key which, at its rate, can also imply compromised code.
+
+\subsection{Obfuscation}
+%When looking into Bytecode, variables are scant
+Code obfuscation is the process through which the programmer adds extra instructions and steps to the code without changing the final outcome of the algorithm. This is, in fact, a common way of turning readable source code into unreadable one. In addition, this will also make Bytecode harder to statically analyse. To further aid my previous claims, below you will be able to find obfuscated ways of performing standard integer computations in the C programming language through various memory and reference-based computations 
+
+
+
+% add examples of non obfuscated variants
+
+\begin{lstlisting}[caption = {Obfuscated computations}, columns=fixed, basewidth=0.5em, basicstyle={\ttfamily}, frame=lines, escapechar=!]
+!\colorbox{light-gray}{Variable Addition}!                    !\colorbox{light-gray}{Variable Subtraction}!
+     
+int A(int a, int b){                  int S(int a, int b){
+    void *x = a;                         char *x = a, *y = ~b;
+    return &(b[x]);                      return &x[(int) &1[y]];
+}                                     }
+
+
+!\colorbox{light-gray}{Variable Multiplication}!              !\colorbox{light-gray}{Variable Division}!
+  
+int M(int a, int b){                  int D(int a, int b){
+    typedef struct _                      typedef struct _
+    {                                      {
+        char whatever[b];                      char whatever[b];
+    } bb;                                  } bb;
+    return &((bb*)0)[a];                   return (bb*)a - (bb*)0;
+}                                      }
+\end{lstlisting}
+\vspace{10pt}
+Furthermore, constant values are everywhere in binary code. One other way to obfuscate things, as shown in \cite{moser2007limits} is replacing the load operation from the register with a set of equivalent instructions which are difficult to analyze statically. Put in another way, by creating a result through a sequence of operations that will always output the same value, one could make their code significantly harder to statically analyse. The code provided below follows a set of instructions which, at the end of its execution, will always output a bite array composed of 0s. \newpage
+\begin{lstlisting}[caption = {Obfuscated predicted output}, columns=fixed, basewidth=0.5em, basicstyle={\ttfamily}, frame=lines]
+int sameOutput()
+{
+    str anyAddress = load_any_address();
+    int predefined = generate_bit_array(anyAddress.length());
+    for (int i = 0; i < anyAddress.length(); ++i){
+        if (anyAddress[i] == '0')
+            predefined = predefined XOR 0;
+        else
+            predefined = predefined XOR 1;
+    }
+
+    predefined = predefined OR getSetOfOnes(anyAddress.length());
+    predefined = predefined AND getSetOfZeros(anyAddress.length());
+
+    return predefined;
+}
+\end{lstlisting}
+
+
+%.... code to generate a code sequence that always produces the same result through a given constant.  (( opaque constant calculation )) and through SAT solving methodologies (( 3SAT solving -- check FMSD slides )) 
+\noindent Code obfuscation is one step further than code abstraction; therefore, if the developer wishes to deliver code that is more difficult to understand by the reader, they can create abstractions of it. The reason why this only increases the difficulty for the human and not for the static analyzer is because there are no extra instructions that are being integrated into the code, and therefore, the byte code remains the case. An example of code abstraction can be seen below.
+
+\begin{lstlisting}[caption = {Levels of Code Abstraction}, columns=fixed, basewidth=0.5em, basicstyle={\ttfamily}, frame=lines, escapechar=!]
+!\colorbox{light-gray}{Level 0: No abstraction}!           !\colorbox{light-gray}{Level 1: Parameter abstraction}!
+
+void sum(float arr[], int len) {    void sum(float !\colorbox{light-gray}{P[]}!, int !\colorbox{light-gray}{P}!) { 
+    float sum = 0;                       float sum = 0;
+    int i;                               int i;
+    for (i = 0; i < len; i++);           for (i = 0; i < !\colorbox{light-gray}{P}!; i++)
+        sum += arr[i];                       sum += !\colorbox{light-gray}{P[i]}!;
+    printf("sum: %f",sum);               printf("sum: %f",sum);
+}                                    }
+
+
+!\colorbox{light-gray}{Level 2: Variable abstraction}!     !\colorbox{light-gray}{Level 3: Data type abstraction}!
+
+void sum(float P[], int P) {        void sum(float P[], int P) {
+    float !\colorbox{light-gray}{V}! = 0;                       !\colorbox{light-gray}{T}! V = 0;
+    int !\colorbox{light-gray}{V}!;                             !\colorbox{light-gray}{T}! V;
+    for (!\colorbox{light-gray}{V}! = 0; !\colorbox{light-gray}{V}! < P; !\colorbox{light-gray}{V}!++)          for (V = 0; V < P; V++)
+        !\colorbox{light-gray}{V}! += P[!\colorbox{light-gray}{V}!];                         V += P[V];
+    printf("sum: %f",!\colorbox{light-gray}{V}!);               printf("sum: %f",V);
+}                                   }
+\end{lstlisting}
+
+
+
+\newpage
+
+\subsection{Polymorphism and Metamorphism}
+Another limitation of static code analysis is the accuracy in spotting polymorphism and metamorphism. Polymorphism is the term used to define bits of code able to take different appearances despite them having a shared interface and in a similar way, metamorphism refers to the concept of ever-changing code such that no two compilations will have the same operations and outputs; \cite{metamorphismInC} providing a great introductory example. Moreover, an older study from 2003 proves that polymorphism and metamorphism are more unlikely to not being detected by static code analysis software and neither by other commercial detection software.
+
+
+% https://www.usenix.org/event/sec03/tech/full_papers/christodorescu/christodorescu_html
+% https://auto.tuwien.ac.at/~chris/research/doc/acsac07_limits.pdf !!!
+% https://crysys.hu/publications/files/BencsathPBF12eurosec.pdf
+% https://www.differencebetween.com/difference-between-source-code-and-vs-bytecode/
+% https://blog.hcltechsw.com/appscan/bytecode-compiled-vs-source-code-scanning/
+% underpinning
+
+
+\subsection{Human or Tools?}
+
+With technology evolving at such a high page, tools together with AI are also becoming smarter and more human-like. One of the first tests done to prove such a claim was The Imitation Game \cite{french2000turing} where the reached conclusion is that the machine is capable of intelligent thinking. However, intelligent thinking does not mean emotions. A machine is just the result of a series of instructions and is therefore not capable of feeling emotions \cite{picard2008toward}, henceforth there being no bias in their judgment; unlike with humans, where a simple mood change could heavily impact their prudence and reasoning. Naturally, humans, tools and AI can all improve in various fields, threat detection being one of them.
+
+\subsubsection{Drawbacks of Tools}
+
+Computers do not possess common sense, nor inherited intelligence \cite{loch1996evaluating}, henceforth they are unable to always accurately identify threats. As a countermeasure, they are often programmed in ways that tend to detect more false positives than not, a judgment solely based on the mindset of it being safer to catch anything that may be a risk than to let it run amok.
+
+\subsubsection{Drawbacks of Humans}
+
+It is common to rely on common sense coupled with prior knowledge in the specific field before making a choice or an assumption. This mentality however, is not going to be enough when detecting threats, especially when taking into account the fact that motivational and cognitive factors bias inferences away from certain criterias and hereby increase the margin of a judgmental error \cite{kruglanski1983bias}. When looking at a program from a human perspective, the target may be more likely to trust a file received from a friend; and if not, a digital signature can be faked to prove a false legitimacy. \\
+
+\noindent Subsequently, even source code analysis done by humans may prove futile, primarily due to the following factors:
+\begin{itemize}
+    \item Simple misinterpretations of code
+    \item Lack of complete understanding of a programming language or over a library
+    \item Ineligible obfuscation of code in order to make the understanding of the code as difficult as possible
+    \item Impossibility to follow or keep track of multiple files
+\end{itemize}
+
+
+\subsection{Riot Games' Anticheat}
+%https://www.unknowncheats.me/forum/league-of-legends/469197-beginners-guide-hacking-league-legends.html 
+%https://www.unknowncheats.me/forum/league-of-legends/361095-league-legends-anti-cheat-riot-ac.html #Thanks yeti
+An excellent approach to detecting threats can be found by taking a look at the anti-cheat developed by Riot Games for one of the most played games in the world (with a player base of over 10 million monthly players)\cite{ferrari2013generative}. Gaining an unfair advantage in League of Legends has been a considerably big topic for a long period of time, and with it being such a popular title, countermeasures have to be taken consistently. The anti-cheat in cause has been a subject to constant updates and as of now, it detects possible threats for the game by:
+\begin{itemize}
+    \item Upon even the slightest tampering with the protected application (i.e. attaching a debugger), the application will shut down
+    \item A database of dangerous DLLs exists and upon detecting a match between the executed files and the entries of the database, action will be taken
+    \item On launch, a module has been implemented that scans the hard drive and looks for files that match as a Trojan
+\end{itemize}
+
+
+\section{Threat Detection through SCC} \label{tdtscc}
+
+As priorly seen in \ref{VSCAResults}, Static Code Checking can detect many types of security flaws, including but not limited to buffer overflows, SQL injections, Cross-site scripting attacks and command injection exploits. These tools function by analyzing the code and comparing it to various entries present in a database filled with such, to ultimately find discrepancies between the entries and analyzed code. That being said however, while these tools are able to detect bad behavioral patterns, they are not particularly trained to spot possible threatful behavior of code and this is due to the various ways to mask the intent of the code, some of which being shown in \ref{cap:threat detection methodology}. Therefore, these tools may need to work in tandem with some other software in order to spot such issues \cite{wagner2000intrusion}.\\
+
+\noindent That being said, for this section, in order to analyze purely the capabilities of Static Code Checking tools, we will not look into extending the use cases of these tools but rather see if they are able to detect threats or other simple malicious behavior.
+
+
+
+%Static code analysis can detect many types of security flaws, including buffer overflows, SQL injections, cross-site scripting attacks, command injection exploits and denial-of-service attacks. It does this by comparing source code with some sort of reference (usually a database), which provides information about how code should be interpreted; if there's a discrepancy between what's in the source code and what's in the reference, then there may be an issue with how that piece of code works or how it was written down on paper (which can lead to security problems).
+
+\section{Antiviruses}
+
+Intuitively, it is expected to assume that Static Code Checking tools act similarly to antiviruses, and such assumptions would not be too distant from the truth. Both antiviruses and SCCs look for a specific order of rules and patterns throughout the source code \cite{stefanovic2020static}, however, they are both trained to look for different behaviors. The primary difference between the two is that Static Code Checkers allow practitioners to add new rules and conditions to predefined ones, allowing more versatility and extensions to such tools.
+
+%Intuitively, it is expected to assume that this is the same as an antivirus, and such an assumption would not be too distant from the truth. Both antiviruses and SCCs look for a specific order of rules and patterns throughout the source code \cite{stefanovic2020static}, however, SCC tools allow practitioners to add new rules and conditions to predefined ones such that neither one or the other can detect and error if patterns do not match the predefined behaviour. 
+
+
+% http://publicatio.bibl.u-szeged.hu/12943/1/HGB17.pdf page 8 style
+% https://infosecwriteups.com/malware-analysis-101-basic-static-analysis-db59119bc00a

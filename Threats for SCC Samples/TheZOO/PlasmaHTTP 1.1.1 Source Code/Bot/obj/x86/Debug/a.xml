@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+a
+</name>
+</assembly>
+<members>
+<member name="P:a.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:a.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:a.My.Resources.Resources.CPUGPUMiner">
+	<summary>
+  Looks up a localized string similar to 23423814712893749812376498713264872136487326184612389746213874681326489123648912364813268946321864872316458793216489132640982343658743265874368756438756286483264832685624385634289658934265894325432523452763498721364I7612874621384631286489213648921364812364861328461328468123648132648723165873246587426387563248756432879658923465893246589432687562387456287163487612389746213897463128946981329649813266.
+</summary>
+</member><member name="T:a.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

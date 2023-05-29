@@ -1,0 +1,14 @@
+Options -Indexes
+
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} ^http://.*google\.com [NC]
+RewriteRule .* - [F]
+
+Order Deny,Allow
+Deny from *.abuse.ch
+Deny from *.yahoo.com
+Deny from *.alexa.com
+Deny from *.ibm.com
+Deny from *.tracerlock.com
+Deny from *.hispeed.ch
+Deny from *.googlebot.com

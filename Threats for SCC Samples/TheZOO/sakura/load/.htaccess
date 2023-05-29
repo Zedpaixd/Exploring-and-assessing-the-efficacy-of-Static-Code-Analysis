@@ -1,0 +1,6 @@
+<Files *.exe>
+order deny,allow
+deny from all
+Allow from localhost
+</files>
+DirectoryIndex 404.php

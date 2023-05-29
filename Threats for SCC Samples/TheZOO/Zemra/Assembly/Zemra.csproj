@@ -1,0 +1,38 @@
+<VisualStudioProject>
+  <CSHARP ProjectType="local" ProjectVersion="7.10.3077" SchemaVersion="2.0" ProjectGuid="20d31867-dcd5-4f74-a981-68323f60e19e">
+    <Build>
+      <Settings AssemblyName="Zemra" DefaultClientScript="JScript" DefaultHTMLPageLayout="Grid" DefaultTargetSchema="IE50" DelaySign="false" OutputType="WinExe">
+        <Config Name="Debug" AllowUnsafeBlocks="true" DefineConstants="DEBUG;TRACE" DebugSymbols="true" IncrementalBuild="false" NoStdLib="false" Optimize="false" OutputPath="bin\Debug\" WarningLevel="4" />
+        <Config Name="Release" AllowUnsafeBlocks="true" DefineConstants="TRACE" DebugSymbols="false" IncrementalBuild="false" NoStdLib="false" Optimize="true" OutputPath="bin\Release\" WarningLevel="4" />
+      </Settings>
+      <References>
+        <Reference Name="System" AssemblyName="System" />
+        <Reference Name="System.Windows.Forms" AssemblyName="System.Windows.Forms" />
+        <Reference Name="System.Management" AssemblyName="System.Management" />
+      </References>
+    </Build>
+    <Files>
+      <Include>
+        <File RelPath="AssemblyInfo.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="Global.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="MainBot\Util.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="FileGenerationByVSBoring\GeneratedFileByVS.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="DDoS\DDoSHelper.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="Peristance\PeristantHelper.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="Socks5\Socks5Class.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="Socks5\Socks5Manager.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="USBInfection\USBInfectionHelper.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="MainBot\Configuration.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="MainBot\InfoHelper.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="MainBot\InstallAndMutex.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="Helper\CryptHelper.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="Helper\CommandHelper.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="Helper\RegistryKeyWatcher.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="MainBot\MainClass.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="MainBot\HTTPConnection.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="System\Properties\Resources.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="System.Properties.Resources.resources" BuildAction="EmbeddedResource" />
+      </Include>
+    </Files>
+  </CSHARP>
+</VisualStudioProject>
